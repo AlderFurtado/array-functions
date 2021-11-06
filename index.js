@@ -1,4 +1,29 @@
-const { add } = require('./operations-array-helper');
+import {
+    addBegin,
+    addEnd,
+    getByIndex,
+    getByKeyValue,
+    getFirst,
+    getLast,
+    removeByKey,
+    removeByValue,
+    removeFirst,
+    removeLast,
+    updateAllValue,
+    updateValue
+} from './operations-array-helper'
 
-const a = add(1,2)
-console.log(a);
+module.export = {
+    addBegin,
+    addEnd,
+    getByIndex,
+    getByKeyValue,
+    getFirst,
+    getLast,
+    removeByKey,
+    removeByValue,
+    removeFirst,
+    removeLast,
+    updateAllValue,
+    updateValue
+}
