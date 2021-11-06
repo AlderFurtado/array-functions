@@ -1,5 +1,11 @@
-const { add } = require('./operations-array-helper');
+const { addEnd, addStart } = require('./operations-array-helper');
 
-test('2 + 3 = 5', () => {
-    expect(add(2, 3)).toBe(5);
-  });
+const mockArr = [1, 2, 3]
+
+test('add in end of array', () => {
+  expect(addEnd(mockArr, 4)).toStrictEqual([1, 2, 3, 4]);
+});
+
+test('add in start of array', () => {
+  expect(addStart(mockArr, 4)).toStrictEqual([4, 1, 2, 3]);
+});

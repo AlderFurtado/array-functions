@@ -1,5 +1,10 @@
-const add = (v1, v2) =>{
-    return v1 + v2
+export {}
+const addStart = (arr:any[], value:any) => {
+    return [ value,...arr]
 }
 
-// module.exports = { te: add };
+const addEnd = (arr:any[], value:any) => {
+    return [...arr,value]
+}
+
+module.exports = { addStart, addEnd };
