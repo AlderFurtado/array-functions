@@ -5,10 +5,14 @@ import {
   getByKeyValue,
   getFirst,
   getLast,
+  getMax,
+  getMin,
+  paginate,
   removeByKey,
   removeByValue,
   removeFirst,
   removeLast,
+  sort,
   updateAllValue,
   updateValue
 } from './operations-array-helper'
@@ -153,3 +157,95 @@ describe("Update all value", () => {
   })
 })
 
+describe("Get max value", () => {
+  test('array simple', () => {
+    expect(getMax(mockArr)).toStrictEqual(3)
+  })
+
+  test('array objects', () => {
+    const mock1 = { id: 1, name: "test", age: 1, isSelected: false }
+    const mock2 = { id: 2, name: "test", age: 2, isSelected: false }
+    const mock3 = { id: 3, name: "test", age: 3, isSelected: false }
+
+    const mockArrObjects = [mock1, mock2, mock3];
+    expect(getMax(mockArrObjects, "age")).toStrictEqual({ id: 3, name: "test", age: 3, isSelected: false })
+  })
+})
+
+describe("Get min value", () => {
+  test('array simple', () => {
+    expect(getMin(mockArr)).toStrictEqual(1)
+  })
+
+  test('array objects', () => {
+    const mock1 = { id: 1, name: "test", age: 1, isSelected: false }
+    const mock2 = { id: 2, name: "test", age: 2, isSelected: false }
+    const mock3 = { id: 3, name: "test", age: 3, isSelected: false }
+
+    const mockArrObjects = [mock1, mock2, mock3];
+    expect(getMin(mockArrObjects, "age")).toStrictEqual({ id: 1, name: "test", age: 1, isSelected: false })
+  })
+})
+
+describe("Paginate", () => {
+  test('array simple', () => {
+    const mockArr = [1, 2, 3, 4, 5, 6, 7, 8]
+    expect(paginate(mockArr, 4)).toStrictEqual([[1, 2, 3, 4], [5, 6, 7, 8]])
+  })
+
+  test('array objects', () => {
+    const mock1 = { id: 1, name: "test", age: 1, isSelected: false }
+    const mock2 = { id: 2, name: "test", age: 2, isSelected: false }
+    const mock3 = { id: 3, name: "test", age: 3, isSelected: false }
+    const mock4 = { id: 4, name: "test", age: 4, isSelected: false }
+    const mock5 = { id: 5, name: "test", age: 5, isSelected: false }
+    const mock6 = { id: 6, name: "test", age: 6, isSelected: false }
+    const mock7 = { id: 7, name: "test", age: 7, isSelected: false }
+    const mock8 = { id: 8, name: "test", age: 8, isSelected: false }
+
+    const mockArrObjects = [mock1, mock2, mock3, mock4, mock5, mock6, mock7, mock8];
+    expect(paginate(mockArrObjects, 4)).toStrictEqual([[mock1, mock2, mock3, mock4], [mock5, mock6, mock7, mock8]])
+  })
+})
+
+describe("sort", () => {
+  test('array simple DESC', () => {
+    const mockArr = [1, 2, 3, 4, 5, 6, 7, 8]
+    expect(sort(mockArr, "DESC")).toStrictEqual([8, 7, 6, 5, 4, 3, 2, 1])
+  })
+
+  test('array simple ASC', () => {
+    const mockArr = [1, 2, 3, 4, 5, 6, 7, 8]
+    expect(sort(mockArr, "ASC")).toStrictEqual([1, 2, 3, 4, 5, 6, 7, 8])
+  })
+
+  test('array object DESC', () => {
+    const mock1 = { id: 1, name: "test", age: 1, isSelected: false }
+    const mock2 = { id: 2, name: "test", age: 2, isSelected: false }
+    const mock3 = { id: 3, name: "test", age: 3, isSelected: false }
+    const mock4 = { id: 4, name: "test", age: 4, isSelected: false }
+    const mock5 = { id: 5, name: "test", age: 5, isSelected: false }
+    const mock6 = { id: 6, name: "test", age: 6, isSelected: false }
+    const mock7 = { id: 7, name: "test", age: 7, isSelected: false }
+    const mock8 = { id: 8, name: "test", age: 8, isSelected: false }
+
+    const mockArrObjects = [mock1, mock2, mock3, mock4, mock5, mock6, mock7, mock8];
+
+    expect(sort(mockArrObjects, "DESC", "age")).toStrictEqual([mock8, mock7, mock6, mock5, mock4, mock3, mock2, mock1])
+  })
+
+  test('array object ASC', () => {
+    const mock1 = { id: 1, name: "test", age: 1, isSelected: false }
+    const mock2 = { id: 2, name: "test", age: 2, isSelected: false }
+    const mock3 = { id: 3, name: "test", age: 3, isSelected: false }
+    const mock4 = { id: 4, name: "test", age: 4, isSelected: false }
+    const mock5 = { id: 5, name: "test", age: 5, isSelected: false }
+    const mock6 = { id: 6, name: "test", age: 6, isSelected: false }
+    const mock7 = { id: 7, name: "test", age: 7, isSelected: false }
+    const mock8 = { id: 8, name: "test", age: 8, isSelected: false }
+
+    const mockArrObjects = [mock1, mock2, mock3, mock4, mock5, mock6, mock7, mock8];
+
+    expect(sort(mockArrObjects, "ASC", "age")).toStrictEqual([mock1, mock2, mock3, mock4, mock5, mock6, mock7, mock8])
+  })
+})
