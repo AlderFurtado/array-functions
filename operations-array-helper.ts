@@ -45,7 +45,7 @@ const updateValue = (arr: any[], oldValue: any, newValue: any, key?: any) => {
             if (a == oldValue && hasFound == false) {
                 hasFound = true
                 return newValue
-            }else{
+            } else {
                 return a
             }
         })
@@ -54,7 +54,7 @@ const updateValue = (arr: any[], oldValue: any, newValue: any, key?: any) => {
         return arr.map((a) => {
             if (a[key] == oldValue && hasFound == false) {
                 hasFound = true
-                return {...a,[key]: newValue}
+                return { ...a, [key]: newValue }
             }
             return a
         })
@@ -62,30 +62,62 @@ const updateValue = (arr: any[], oldValue: any, newValue: any, key?: any) => {
 }
 
 const updateAllValue = (arr: any[], oldValue: any, newValue: any, key?: any) => {
-    if(!key) {
+    if (!key) {
         return arr.map((a) => {
             if (a == oldValue) return newValue
             return a
         })
-    }else{
+    } else {
         return arr.map((a) => {
-            if (a[key] == oldValue) return {...a,[key]: newValue}
+            if (a[key] == oldValue) return { ...a, [key]: newValue }
             return a
         })
     }
-    
+
 }
 
-// const updateValueByKey = (arr: any[], key: any, oldValue: any, newValue: any) => {
-//     let hasFound = false
-//     return arr.map((a) => {
-//         if (a == oldValue && hasFound == false) {
-//             hasFound = true
-//             return newValue
-//         }
-//         return a
-//     })
-// }
+const getMax = (arr: any[], key?: any) => {
+    if (!key) {
+        return Math.max(...arr)
+    } else {
+        const max = Math.max(...arr.map((a: any) => a[key]));
+        return arr.find((a) => a[key] == max)
+    }
+}
+
+const getMin = (arr: any[], key?: any) => {
+    if (!key) {
+        return Math.min(...arr)
+    } else {
+        const max = Math.min(...arr.map((a: any) => a[key]));
+        return arr.find((a) => a[key] == max)
+    }
+}
+
+const paginate = (arr: any[], limitPerPage: number) => {
+    return arr.reduce((acc, val, i) => {
+        let idx = Math.floor(i / limitPerPage);
+        let page = acc[idx] || (acc[idx] = []);
+        page.push(val);
+
+        return acc;
+    }, []);
+}
+
+const sort = (arr: any[], order: "DESC"|"ASC", key?:any) => {
+    if(!key){
+        return arr.sort((a:any,b:any) => {
+            if(order == "DESC")return  b - a
+            else return  a - b
+        })
+    }else{
+        return arr.sort((a:any,b:any) => {
+            if(order == "DESC")return  b[key] - a[key]
+            else return a[key] - b[key] 
+        })
+    }
+}
+
 
 export {
     addBegin,
@@ -99,5 +131,9 @@ export {
     getByIndex,
     getByKeyValue,
     updateValue,
-    updateAllValue
+    updateAllValue,
+    getMax,
+    getMin,
+    paginate,
+    sort,
 }
